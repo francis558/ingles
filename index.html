@@ -1,1 +1,1701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bilingüe · Panel de estudio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
 
+    body {
+      background: #f2f5f9;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .app-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+      padding: 28px 30px 35px;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .app-header h1 {
+      font-weight: 600;
+      font-size: 1.9rem;
+      color: #0b1b33;
+      letter-spacing: -0.5px;
+    }
+
+    .app-header h1 i {
+      color: #2a7de1;
+      margin-right: 8px;
+    }
+
+    .login-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #f0f4fe;
+      padding: 6px 16px 6px 20px;
+      border-radius: 40px;
+    }
+
+    .login-area span {
+      font-weight: 500;
+      color: #1f3a6b;
+    }
+
+    .btn {
+      border: none;
+      background: transparent;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary {
+      background: #2a7de1;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #1b62b5;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #2a7de1;
+      color: #2a7de1;
+      background: white;
+    }
+    .btn-outline:hover {
+      background: #e9f0fe;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+    .btn-danger:hover {
+      background: #b02a37;
+    }
+
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+    .btn-success:hover {
+      background: #1e7e34;
+    }
+
+    .btn-sm {
+      padding: 4px 14px;
+      font-size: 0.8rem;
+    }
+
+    .search-section {
+      margin-bottom: 28px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #f0f4fa;
+      border-radius: 60px;
+      padding: 6px 6px 6px 24px;
+      border: 1px solid #d9e2ef;
+    }
+
+    .search-box i {
+      color: #6f7e95;
+      font-size: 1.1rem;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 14px 16px;
+      width: 100%;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: #8a9bb0;
+    }
+
+    .add-form {
+      background: #f8fafd;
+      border-radius: 24px;
+      padding: 18px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px 18px;
+      margin-bottom: 30px;
+      border: 1px solid #e3ebf6;
+    }
+
+    .add-form .field-group {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .add-form .field-group label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      color: #3a5478;
+    }
+
+    .add-form .field-group input {
+      background: white;
+      border: 1px solid #ccd9eb;
+      border-radius: 40px;
+      padding: 12px 18px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: 0.1s;
+    }
+
+    .add-form .field-group input:focus {
+      border-color: #2a7de1;
+      box-shadow: 0 0 0 3px rgba(42, 125, 225, 0.15);
+    }
+
+    .add-form .btn {
+      align-self: flex-end;
+      padding: 12px 28px;
+      background: #1f3a6b;
+      color: white;
+      border-radius: 60px;
+      font-weight: 600;
+      border: none;
+      margin-top: 4px;
+    }
+    .add-form .btn:hover {
+      background: #142b4f;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 20px;
+      border: 1px solid #e6edf6;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      min-width: 600px;
+    }
+
+    th {
+      text-align: left;
+      padding: 14px 18px;
+      background: #f4f8ff;
+      font-weight: 600;
+      color: #1f3a6b;
+      border-bottom: 2px solid #d9e2ef;
+      font-size: 0.85rem;
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #eef3f9;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .col-ingles {
+      font-weight: 500;
+      color: #0b1b33;
+    }
+
+    .col-espanol {
+      color: #2d4059;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6f7e95;
+      font-size: 1rem;
+    }
+
+    .toast {
+      background: #1f3a6b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 60px;
+      font-weight: 500;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      transition: 0.25s;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #3a5478;
+    }
+
+    .btn-export, .btn-import {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-export:hover {
+      background: #1e7e34;
+    }
+    .btn-import {
+      background: #6f42c1;
+    }
+    .btn-import:hover {
+      background: #5a32a3;
+    }
+
+    .file-input-hidden {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      .app-container { padding: 16px; }
+      .app-header { flex-direction: column; align-items: stretch; gap: 14px; }
+      .login-area { justify-content: space-between; }
+      .stats { flex-direction: column; align-items: stretch; }
+      .stats > div { display: flex; flex-wrap: wrap; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container" id="app">
+  <div id="toast" class="toast">Mensaje</div>
+
+  <header class="app-header">
+    <h1><i class="fas fa-language"></i> Bilingüe <span style="font-size:0.8rem;font-weight:400;color:#6f7e95;">+800 expresiones</span></h1>
+    <div class="login-area">
+      <span id="userStatus"><i class="fas fa-user-circle"></i> Invitado</span>
+      <div id="authButtons">
+        <button class="btn btn-primary btn-sm" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <button class="btn btn-outline btn-sm" id="logoutBtn" style="display:none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="search-section">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Buscar en inglés o español...">
+    </div>
+  </div>
+
+  <div class="add-form">
+    <div class="field-group">
+      <label><i class="fas fa-quote-right"></i> Inglés</label>
+      <input type="text" id="newEnglish" placeholder="Ej: Break a leg" />
+    </div>
+    <div class="field-group">
+      <label><i class="fas fa-quote-left"></i> Español</label>
+      <input type="text" id="newSpanish" placeholder="Ej: Buena suerte" />
+    </div>
+    <button class="btn" id="addBtn"><i class="fas fa-plus-circle"></i> Añadir</button>
+  </div>
+
+  <div class="stats">
+    <div>
+      <span><i class="fas fa-database"></i> Total: <strong id="totalCount">0</strong> expresiones</span>
+      <span><i class="fas fa-filter"></i> Mostrando: <strong id="visibleCount">0</strong></span>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="btn-export" id="exportBtn"><i class="fas fa-download"></i> Exportar CSV</button>
+      <button class="btn-import" id="importBtn"><i class="fas fa-upload"></i> Importar CSV</button>
+      <input type="file" id="fileInput" class="file-input-hidden" accept=".csv">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5%;">#</th>
+          <th style="width:40%;">Inglés (English)</th>
+          <th style="width:40%;">Español (Spanish)</th>
+          <th style="width:15%;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top: 12px; font-size:0.85rem; color:#5b708b; text-align:right;">
+    <i class="fas fa-save" style="margin-right:4px;"></i> Los datos se guardan automáticamente en tu navegador
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- DATOS INICIALES (815 expresiones) -----
+    function generateInitialData() {
+      const base = [
+        { english: "I'll deal with ...", spanish: "Me preocuparé de... / Me encargaré de..." },
+        { english: "at no time", spanish: "jamás! / En ningún momento" },
+        { english: "at noon", spanish: "al medio día / Al mediodía" },
+        { english: "I want everyone working", spanish: "quiero a todos trabajando" },
+        { english: "I want everyone working all night", spanish: "quiero a todos trabajando toda la noche" },
+        { english: "all night", spanish: "toda la noche" },
+        { english: "first thing", spanish: "Primero / A primera hora" },
+        { english: "We hit first thing", spanish: "atacaremos primero / Atacaremos a primera hora" },
+        { english: "When they won't expect it", spanish: "cuando ellos no lo esperen" },
+        { english: "Pay no attention to him", spanish: "No le prestes atención" },
+        { english: "on his brain", spanish: "en su cerebro" },
+        { english: "I'm late for....", spanish: "Llego tarde a/al..." },
+        { english: "there's no need to ....", spanish: "No hay necesidad de..." },
+        { english: "I'm willing to..", spanish: "estoy dispuesto a.." },
+        { english: "what I'm trying to say is", spanish: "Lo que estoy tratando de decir es.." },
+        { english: "it's a bit like .....", spanish: "Es un poco como..." },
+        { english: "if you have time ..", spanish: "si tienes tiempo..." },
+        { english: "it would be better if you knew saying it", spanish: "sería mejor si tú supieras decirlo" },
+        { english: "Can I just ...", spanish: "Solo puedo?....." },
+        { english: "Is it true that?", spanish: "¿Es cierto que..?" },
+        { english: "There's a possibility that....", spanish: "Hay una posibilidad de que..." },
+        { english: "There's a possibility that he's not coming back", spanish: "Hay una posibilidad de que no regrese" },
+        { english: "mess around", spanish: "perder el tiempo" },
+        { english: "Come by", spanish: "Pasar por / conseguir / Pasarse por un sitio" },
+        { english: "get by", spanish: "arreglárselas / sobrevivir" },
+        { english: "We get by on what we make", spanish: "sobrevivimos en lo que hacemos / Sobrevivimos con lo que ganamos" },
+        { english: "wait for (someone or something)", spanish: "esperar por (algo o alguien)" },
+        { english: "I'm waiting for you", spanish: "espero por ti!" },
+        { english: "ask for", spanish: "pedir (algo específico)" },
+        { english: "He asked for help", spanish: "Él pidió ayuda" },
+        { english: "go for", spanish: "elegir / ir por" },
+        { english: "I'll go for the blue", spanish: "elegiré el azul / Elegiré el azul" },
+        { english: "apply for..", spanish: "Solicitar.." },
+        { english: "I applied for the job", spanish: "solicité el trabajo / Solicité el trabajo" },
+        { english: "none of the", spanish: "ninguna de la/s" },
+        { english: "The ones I like", spanish: "Los que me gustan" },
+        { english: "do your best!", spanish: "haz lo mejor que puedas!" },
+        { english: "tell the truth", spanish: "di la verdad!" },
+        { english: "I didn't mean to.....", spanish: "No quise...." },
+        { english: "it's supposed to..", spanish: "Se supone que.." },
+        { english: "it's supposed to be..", spanish: "Se supone que es.. / Se supone ser..." },
+        { english: "The more... The better", spanish: "Cuánto/a más... Mejor" },
+        { english: "Can you just...?", spanish: "Solo puedes?....." },
+        { english: "I'm so glad...", spanish: "Estoy contento...." },
+        { english: "Take over..", spanish: "tomar el control de.. / Tomando el control de.." },
+        { english: "She's taking over the project", spanish: "ella está tomando el control del proyecto" },
+        { english: "get over", spanish: "superar" },
+        { english: "go through", spanish: "pasar por.. (situaciones / situaciones difíciles)" },
+        { english: "I went through a lot last year", spanish: "pasé por mucho el año pasado!" },
+        { english: "get through (sometime)", spanish: "terminar / Terminar / Cruzar" },
+        { english: "I just need to get through today", spanish: "Solo necesito terminar hoy! / Solo necesito terminar el día de hoy!" },
+        { english: "look through", spanish: "revisar todo.." },
+        { english: "I looked through all the emails", spanish: "revisé todos los correos" },
+        { english: "push through", spanish: "seguir adelante (progreso / hacer progreso a pesar de todo)" },
+        { english: "You just have to push through", spanish: "solo tienes que seguir adelante!" },
+        { english: "a long meeting", spanish: "una reunión larga" },
+        { english: "Sit through ...", spanish: "aguantar / soportar ...." },
+        { english: "I had to sit through a long meeting", spanish: "tuve que aguantar una reunión larga" },
+        { english: "look around", spanish: "mirar alrededor / tirar un ojo / Echar un ojo" },
+        { english: "I'm just looking around", spanish: "solo estoy mirando" },
+        { english: "Walk around...", spanish: "Caminar por..." },
+        { english: "We walked around the city all day", spanish: "caminamos por la ciudad todo el día" },
+        { english: "get around", spanish: "moverse / arreglárselas / Moverse / Arreglárselas para viajar" },
+        { english: "How do you get around without a car?", spanish: "Cómo te mueves sin carro?" },
+        { english: "Work around", spanish: "encontrar la forma... / Encontrar la forma / Sortear un problema" },
+        { english: "we'll work around it", spanish: "encontraremos la forma.. (salir de una situación)" },
+        { english: "Want something to drink?", spanish: "¿quieres algo de tomar? / ¿quieres algo para tomar? / ¿Quieres tomar algo?" },
+        { english: "Water's fine, thanks", spanish: "Con agua está bien, gracias!" },
+        { english: "Is this seat taken?", spanish: "Es este asiento tomado? / ¿Está ocupado este asiento?" },
+        { english: "go ahead!", spanish: "adelante!" },
+        { english: "Not at all", spanish: "Claro que no! / No en absoluto! / No, en absoluto !" },
+        { english: "Nope!", spanish: "No!" },
+        { english: "Get in", spanish: "subirse, meterse" },
+        { english: "join in", spanish: "participar" },
+        { english: "Fill in", spanish: "llenar / rellenar" },
+        { english: "Turn into", spanish: "convertirse" },
+        { english: "It turned into a big problem", spanish: "se convirtió en un problema / se convirtió en un gran problema" },
+        { english: "Get into", spanish: "interesarse en / meterse en" },
+        { english: "run into", spanish: "encontrarse con (casualidad)" },
+        { english: "I bump into (someone)", spanish: "encontrarse con (alguien)" },
+        { english: "I bumped into my neighbor", spanish: "me encontré con mi vecino" },
+        { english: "talk (someone) into", spanish: "convencer a (alguien)" },
+        { english: "She talked me into going", spanish: "Ella me convenció de ir" },
+        { english: "Go over", spanish: "revisar" },
+        { english: "Let's go over this one more time", spanish: "revisemos eso una vez más" },
+        { english: "Look over", spanish: "revisar (algo rápido)" },
+        { english: "Hand over (something)", spanish: "entregar" },
+        { english: "He handed over the keys", spanish: "él entregó las llaves" },
+        { english: "None of your business", spanish: "No es asunto tuyo!" },
+        { english: "So you say!", spanish: "¡eso es lo que tú dices!" },
+        { english: "quite so!", spanish: "así es!" },
+        { english: "is like this", spanish: "Es así!" },
+        { english: "It was great", spanish: "Fue genial!" },
+        { english: "You okey", spanish: "estás bien? / ¿Estás bien?" },
+        { english: "Just tired!", spanish: "Solo cansado!" },
+        { english: "Got any plans tonight?", spanish: "tienes planes esta noche?" },
+        { english: "Where you headed?", spanish: "¿A dónde vas?" },
+        { english: "just home", spanish: "solo a casa (respuesta)" },
+        { english: "Need a hand?", spanish: "¿necesitas una mano? / ¿Necesita una mano?" },
+        { english: "So far, so good", spanish: "Hasta ahora, todo bien" },
+        { english: "well said!", spanish: "bien dicho!" },
+        { english: "Gotcha", spanish: "Entendido!" },
+        { english: "go on", spanish: "continúa!" },
+        { english: "it depends", spanish: "depende!" },
+        { english: "Beats me", spanish: "No tengo idea!" },
+        { english: "Never mind", spanish: "No importa" },
+        { english: "poor you", spanish: "pobrecito!" },
+        { english: "So what?", spanish: "Pues qué?" },
+        { english: "who cares?", spanish: "¿A quién le importa?" },
+        { english: "Nonsense", spanish: "Tonterías!" },
+        { english: "what's wrong ?", spanish: "¿Qué está mal? ¿Todo bien?" },
+        { english: "That okay with you?", spanish: "¿eso está bien? ¿Te parece" },
+        { english: "mind if I join ?", spanish: "Te molesta si me uno?" },
+        { english: "Count me in !", spanish: "Me apunto !" },
+        { english: "dead serious !", spanish: "Muy en serio !" },
+        { english: "Let's grab something", spanish: "Vamos a comer algo" },
+        { english: "can't complain", spanish: "todo bien / no me quejo/ahí vamos" },
+        { english: "what's going on?", spanish: "¿qué pasa? ¿ qué hay de nuevo?" },
+        { english: "Same old", spanish: "Lo mismo de siempre" },
+        { english: "You got a minute?", spanish: "¿Tienes un minuto?" },
+        { english: "If the weather's nice", spanish: "Si el clima es bueno" },
+        { english: "Right Path", spanish: "Camino correcto" },
+        { english: "I'm in... (finance)", spanish: "Estoy en ..." },
+        { english: "I'm a freelance ..", spanish: "Soy un independiente..." },
+        { english: "Who do you work for ?", spanish: "Para quien trabajas ?" },
+        { english: "I work for Google", spanish: "Trabajo para Google" },
+        { english: "I work for/at...", spanish: "Trabajo para/ en..." },
+        { english: "I run my own Business", spanish: "Dirijo mi propio negocio" },
+        { english: "I run a...(restaurant)", spanish: "Dirijo un...(restaurante)" },
+        { english: "I work in a", spanish: "trabajo en una" },
+        { english: "I'm unemployed", spanish: "Estoy desempleado" },
+        { english: "I'm reTIRED", spanish: "estoy retirado/Jubilado" },
+        { english: "I'd like to see a..", spanish: "Me gustaría ver un" },
+        { english: "On the other hand", spanish: "Por otro lado/parte" },
+        { english: "Just so you know..", spanish: "Para que lo sepas.." },
+        { english: "I need to access to...", spanish: "necesito acceder a.." },
+        { english: "out with it", spanish: "suéltalo ya/fuera con eso / Suéltala ya ! (algo que no se quiere decir)" },
+        { english: "don't bother..", spanish: "no te molestes.." },
+        { english: "don't go there", spanish: "no vayas ahí/no hables de eso / no hable de eso/" },
+        { english: "I can live with that", spanish: "puedo vivir con eso (aceptar algo)" },
+        { english: "I wouldn't go that far..", spanish: "No iría tan lejos/no es para tanto / No es para tanto !" },
+        { english: "¡ you know the drill !", spanish: "¡ Ya sabes que hacer ! / ya sabes qué hacer !" },
+        { english: "You know better than that", spanish: "Tu sabes mejor que eso / Tú sabes mejor que eso !" },
+        { english: "what's that supposed to mean?", spanish: "Qué se supone que significa ? / ¿qué se supone que significa eso?" },
+        { english: "Not again", spanish: "No otra vez/ Node nuevo / No otra vez! / No de nuevo" },
+        { english: "¡ Stay safe !", spanish: "¡ Cuídate !" },
+        { english: "Not possible", spanish: "Imposible" },
+        { english: "Not this time", spanish: "Tal vez no/ No este tiempo / no en esta ocasión/no esta vez !" },
+        { english: "watch it !", spanish: "Cuidado !" },
+        { english: "Not a bit", spanish: "Ni un poco/ en absoluto / para nada !/ Ni un poco" },
+        { english: "¡ be good !", spanish: "Pórtate bien!" },
+        { english: "be right there !", spanish: "voy para allá ! / ya voy!" },
+        { english: "Anything you say !", spanish: "Lo que tú digas !" },
+        { english: "You said it", spanish: "Tu lo has dicho" },
+        { english: "don't mind me", spanish: "No me hagas caso" },
+        { english: "hand it over", spanish: "Pásamelo/Dámelo" },
+        { english: "Give 'em hell !", spanish: "Acaba con ellos !" },
+        { english: "As you wish !", spanish: "Cómo desees !" },
+        { english: "Cheer up !", spanish: "Ánimo !" },
+        { english: "Sounds great !", spanish: "Suena genial !" },
+        { english: "No worries", spanish: "No hay problemas" },
+        { english: "what a shame !", spanish: "Qué lastima !" },
+        { english: "it's worth a shot !", spanish: "Vale la pena ! / vale la pena (intentarlo)" },
+        { english: "for heaven's sake", spanish: "por El amor a Dios" },
+        { english: "How come?", spanish: "Porque? / Porqué? / ¿Cómo ...? /¿Cómo es que..? pregunta motivos" },
+        { english: "for keeps !", spanish: "para siempre !" },
+        { english: "You got it made", spanish: "Lo tienes todo (éxito)" },
+        { english: "ride it out", spanish: "resistir/aguantar" },
+        { english: "High level of", spanish: "alto nivel de" },
+        { english: "As soon as possible", spanish: "lo antes posible/ tan pronto posible" },
+        { english: "it makes me happy", spanish: "eso me hace feliz" },
+        { english: "a bit later", spanish: "un poco más tarde" },
+        { english: "up to now", spanish: "hasta ahora" },
+        { english: "Dinner is served !", spanish: "La cena está servida !" },
+        { english: "I'm beat", spanish: "estoy exhausto" },
+        { english: "I see what you mean !", spanish: "Veo lo que quieres decir ! / Entiendo tu punto/ veo lo que quieres decir !" },
+        { english: "What a small world !", spanish: "Qué pequeño es el mundo" },
+        { english: "It's a small world !", spanish: "Es un mundo pequeño !" },
+        { english: "Coulda been worse", spanish: "Podría haber sido peor" },
+        { english: "wanna come?", spanish: "¿quieres venir?" },
+        { english: "I shoulda Known", spanish: "debería haber sabido" },
+        { english: "Kinda weird", spanish: "un poco raro/medio raro" },
+        { english: "easy does it", spanish: "con cuidado!" },
+        { english: "Do sit down", spanish: "Tome asiento" },
+        { english: "It don't matter", spanish: "No importa" },
+        { english: "That doesn't make any sense", spanish: "Eso no tiene sentido / eso no tiene sentido" },
+        { english: "That don't make no sense", spanish: "Eso no tiene sentido" },
+        { english: "That don't make sense", spanish: "Eso no tiene sentido" },
+        { english: "How big..?", spanish: "que tan grande.. ?" },
+        { english: "little by little", spanish: "poco a poco" },
+        { english: "go ahead", spanish: "adelante" },
+        { english: "it ain't right", spanish: "eso no está bien" },
+        { english: "Me and him", spanish: "Yo y él" },
+        { english: "you was late / you were late", spanish: "llegaste tarde" },
+        { english: "A lotta People", spanish: "mucha gente" },
+        { english: "A whole Nother+sustantivo (JOB)", spanish: "Completamente diferente .." },
+        { english: "I'll get with you later", spanish: "hablamos más tarde, estaremos en contacto" },
+        { english: "he and i", spanish: "él y yo" },
+        { english: "That ain't gonna happen", spanish: "Eso no va a pasar" },
+        { english: "I ain't got time for that", spanish: "No tengo tiempo para eso" },
+        { english: "Ain't nothing I can do", spanish: "No hay nada que yo pueda hacer" },
+        { english: "You ain't gotta .. help", spanish: "No tienes que.. ayudar" },
+        { english: "You better Not", spanish: "Será mejor que no lo hagas" },
+        { english: "I could Care less", spanish: "Podría importarme menos" },
+        { english: "It needs fixed", spanish: "Necesita ser arreglado" },
+        { english: "It needs to be fixed", spanish: "Necesita ser arreglado" },
+        { english: "I ain't got no money", spanish: "No tengo dinero" },
+        { english: "You ain't heard nothing yet", spanish: "No has escuchado nada todavía" },
+        { english: "I ain't never been there", spanish: "Nunca he estado ahí" },
+        { english: "Needless to say", spanish: "No hace falta decir" },
+        { english: "believe you me", spanish: "Créeme" },
+        { english: "Man up", spanish: "ser un hombre /sea. un hombre" },
+        { english: "¿Got any?", spanish: "¿Tienes..?" },
+        { english: "How's your mom?", spanish: "¿Como está tu madre?" },
+        { english: "married to", spanish: "casado/a con" },
+        { english: "I'm very bored", spanish: "estoy aburrido" },
+        { english: "It depends on..", spanish: "Depende de..." },
+        { english: "I'm interested in..", spanish: "estoy Inter en.." },
+        { english: "I don't have anything", spanish: "No tengo nada" },
+        { english: "Get out of..", spanish: "Salir de.." },
+        { english: "Get together", spanish: "renunirse" },
+        { english: "Get rid of", spanish: "deshacerse" },
+        { english: "Get on with", spanish: "llevarse bien con/Continuar con" },
+        { english: "Get through", spanish: "Superar" },
+        { english: "Get in touch with", spanish: "Ponerse en contacto con" },
+        { english: "Hold on a sec..", spanish: "Espera un segundo.." },
+        { english: "a bit late ...", spanish: "un poco tarde ..." },
+        { english: "start of the...", spanish: "Inicio de la.." },
+        { english: "kind of", spanish: "un poco de" },
+        { english: "Guess what?", spanish: "Sabes que?" },
+        { english: "That makes sense", spanish: "Eso tiene sentido/Ahora entiendo / Eso tiene sentido !" },
+        { english: "Fair enough ...", spanish: "Tiene sentido.../me parece bien!" },
+        { english: "I'm down", spanish: "me Punto" },
+        { english: "Messy", spanish: "Desordenado" },
+        { english: "You bet", spanish: "Claro que sí / ¡ puedes apostarlo! /Claro que sí !" },
+        { english: "Same here", spanish: "Yo también" },
+        { english: "I feel you", spanish: "te entiendo" },
+        { english: "Tell me about it", spanish: "Dímelo a mi ! / Ni me digas" },
+        { english: "I can't even !", spanish: "No puedo con esto!" },
+        { english: "I'm not gonna lie...", spanish: "no voy a mentir..." },
+        { english: "That's a stretch", spanish: "Eso es un poco exagerado" },
+        { english: "nailed it.", spanish: "salió perfecto." },
+        { english: "big deal", spanish: "gran cosa/ importante" },
+        { english: "I'll figure it out", spanish: "Ya lo resolveré" },
+        { english: "I'm running late", spanish: "voy tarde/ Se me hizo tarde" },
+        { english: "It slipped my mind", spanish: "Se me olvidó" },
+        { english: "I could use a break !", spanish: "Podría usar un descanso!" },
+        { english: "That works for me", spanish: "eso me funciona/ eso funciona pasa me" },
+        { english: "I've got a lot on my plate", spanish: "Tengo mucho encima" },
+        { english: "let's call it a day...", spanish: "lo dejamos por hoy.. / Terminemos por hoy !" },
+        { english: "I'm on my way", spanish: "ya estoy en camino/ya voy / voy en camino" },
+        { english: "you're overthinking it !", spanish: "Le está dando muchas vueltas !" },
+        { english: "I'll keep that in mind ..", spanish: "Lo tendré en cuenta .." },
+        { english: "I'm not gonna sugar-Coat it", spanish: "No les voy a endulzar la verdad /no te lo voy a suavizar" },
+        { english: "that's the thing", spanish: "esa es la cosa/ ese es el punto" },
+        { english: "I'm all set", spanish: "Estoy listo ! /no necesito nada más / Estoy listo/preparado !" },
+        { english: "worried about..", spanish: "preocupado por..." },
+        { english: "congratulations on..", spanish: "Felicidades por.." },
+        { english: "I'm here to...", spanish: "estoy aquí para..." },
+        { english: "I'm on the phone", spanish: "Estoy en el teléfono/estoy llamando (en el momento)" },
+        { english: "do you do", spanish: "haz lo tuyo" },
+        { english: "that's a vibe", spanish: "Que buena onda" },
+        { english: "I get where you're coming from", spanish: "Entiendo de dónde vienes/ entiendo tu punto de vista" },
+        { english: "that's a deal broker", spanish: "eso es inaceptable" },
+        { english: "I'm on the fence", spanish: "Estoy indeciso/No me decido" },
+        { english: "That's a red flag", spanish: "Es una señal de alerta" },
+        { english: "Sleep on it", spanish: "piénsalo" },
+        { english: "No strings attached", spanish: "Sin compromiso" },
+        { english: "I didn't see that coming", spanish: "No me lo esperaba/ No lo ví venir" },
+        { english: "let's not go there", spanish: "No hablemos de eso /Mejor no" },
+        { english: "that stung !", spanish: "eso dolió !" },
+        { english: "I'll pass", spanish: "Paso (no prefiero)" },
+        { english: "that's a wrap !", spanish: "Eso es todo !" },
+        { english: "Easier said than done", spanish: "mas fácil dicho que hecho (refrán) / Es más fácil decirlo que hacerlo" },
+        { english: "I'm just messing with you", spanish: "Te estoy molestando" },
+        { english: "that's the move !", spanish: "esa es al jugada ! (expresión" },
+        { english: "I've been there!", spanish: "He Estado ahí ! (expresión)" },
+        { english: "it's not the end of the word", spanish: "No es el fin del mundo (refrán)" },
+        { english: "You've got this", spanish: "Tu puedes ! / ¡Tú puedes !" },
+        { english: "Let's do this", spanish: "Hagámoslo/Vamos" },
+        { english: "Pretty good !", spanish: "bastante bien ! (repuesta)" },
+        { english: "Can't complain !", spanish: "No puedo quejarme!" },
+        { english: "It's goon alright", spanish: "Va bien/todo bien (repuesta)" },
+        { english: "doing good !", spanish: "Todo bien ! (repuesta)" },
+        { english: "Not bad", spanish: "nada mal" },
+        { english: "I'm Kinda busy", spanish: "estoy un poco ocupado" },
+        { english: "Good sport", spanish: "Buen jugador" },
+        { english: "Sleep over", spanish: "quedarse a dormir" },
+        { english: "Out like a light", spanish: "quedarse dormido" },
+        { english: "Hell of a...", spanish: "Un/una gran...." },
+        { english: "leave me hanging", spanish: "dejar esperando" },
+        { english: "good vibe", spanish: "Buena onda" },
+        { english: "in the works", spanish: "En proceso" },
+        { english: "we better bounce", spanish: "mejor salgamos" },
+        { english: "Let's bounce", spanish: "salgamos" },
+        { english: "keep it real", spanish: "Sé tu mismo" },
+        { english: "fess up", spanish: "confesar/admitir" },
+        { english: "Drink up !", spanish: "acaba el trago !" },
+        { english: "The end of...", spanish: "al final de.." },
+        { english: "what's Good ?", spanish: "que hay de nuevo?" },
+        { english: "a class act", spanish: "destacado/a (persona)" },
+        { english: "I was bummed", spanish: "disgustado/fastidiado" },
+        { english: "don't freak out", spanish: "no te pongas loco" },
+        { english: "freak out", spanish: "ponerse loco" },
+        { english: "Clear out", spanish: "desocupar/ irse" },
+        { english: "weirdo", spanish: "Tipo raro" },
+        { english: "drama queen", spanish: "Reina del drama" },
+        { english: "drama king", spanish: "Rey del drama" },
+        { english: "Tag along", spanish: "acompañar" },
+        { english: "you wanna tag along", spanish: "quieres acompañar" },
+        { english: "Short on Cash", spanish: "corto de Dinero" },
+        { english: "Crank it up !", spanish: "súbete !" },
+        { english: "Crank (something) up", spanish: "subirle a (algo)" },
+        { english: "I'm on it", spanish: "Yo me encargo/estoy en ello / Estoy en eso !" },
+        { english: "Count me in", spanish: "cuenta conmigo" },
+        { english: "suit yourself", spanish: "Cómo quieras/haz lo que quieras" },
+        { english: "Knock it off !", spanish: "Basta ! / Basta! /Para!" },
+        { english: "stick with it !", spanish: "sigue con eso !" },
+        { english: "Cut to the chase !", spanish: "Ve al grano !" },
+        { english: "I'm fed up !", spanish: "estoy Harto!" },
+        { english: "I'm fed up with !", spanish: "Estoy harto con !" },
+        { english: "it's a long shot", spanish: "Es poco probable" },
+        { english: "pull it off", spanish: "lo lograste" },
+        { english: "we pulled it off !", spanish: "Lo logramos!" },
+        { english: "that hits different", spanish: "eso se siente diferente" },
+        { english: "I could use a hand", spanish: "podría dar una mano/ podria ayudar" },
+        { english: "could you use a hand?", spanish: "podría darte una mano ?" },
+        { english: "wrap it up", spanish: "termínalo" },
+        { english: "it's not worth it", spanish: "No vale la pena / no vale la pena" },
+        { english: "The ball's in your court", spanish: "La decisión es tuya" },
+        { english: "take off", spanish: "irse/salir/marcharse / despegar/quitarse" },
+        { english: "cool off", spanish: "tranquilizarse" },
+        { english: "take a load off", spanish: "tomate un descanso/ tomarse un tomarse un descanso" },
+        { english: "confess", spanish: "confesar" },
+        { english: "imma go", spanish: "voy a ir" },
+        { english: "Whatcha got?", spanish: "Que tienes" },
+        { english: "long time no see", spanish: "tanto tiempo sin verte" },
+        { english: "how's everything going ?", spanish: "¿cómo va todo?" },
+        { english: "I've been meaning to call you", spanish: "He Estado queriendo llamarte/ he querido" },
+        { english: "I'm hanging in there", spanish: "ahí vamos" },
+        { english: "it's been a while !", spanish: "ha pasado un tiempo!" },
+        { english: "that's so nice of you !", spanish: "Que amable de tu parte !" },
+        { english: "that's exactly what I was thinking", spanish: "eso es exactamente lo que yo estaba pensando" },
+        { english: "I have mixed feeling about it", spanish: "Tengo sentimientos encontrados" },
+        { english: "I couldn't care less !", spanish: "no me podría importar menos !" },
+        { english: "I'm on the same page", spanish: "Estamos de acuerdo" },
+        { english: "I changed my mind !", spanish: "cambie de opinión !" },
+        { english: "That's none of your business !", spanish: "Eso no es asunto tuyo !" },
+        { english: "I totally agree", spanish: "estoy totalmente de acuerdo" },
+        { english: "I don't really care", spanish: "Realmente no me importa" },
+        { english: "I overslept", spanish: "me quedé dormido" },
+        { english: "I'm stuck in traffic", spanish: "Estoy atascado en el tráfico" },
+        { english: "I lost track of time !", spanish: "perdí la noción del tiempo !" },
+        { english: "Can you give me a ride?", spanish: "Me puedes dar un aventón/llevar?" },
+        { english: "can you gimme a ride ?", spanish: "Me puedes llevar ?" },
+        { english: "I'll be right back", spanish: "Ya regreso" },
+        { english: "Do you mind if I...", spanish: "Te importa si yo..." },
+        { english: "I'm just looking !", spanish: "Solo estoy mirando !" },
+        { english: "I'm not in the mood", spanish: "No estoy de humor/no tengo ganas" },
+        { english: "We should hang out sometime !", spanish: "Deberíamos salir algún día!" },
+        { english: "it's up to you !", spanish: "Tu decides/depende de ti! / tu decides! / ¡es tu decisión !" },
+        { english: "I didn't mean to offend you !", spanish: "No fue mi intención ofenderte !!" },
+        { english: "That's so thought-ful !", spanish: "Que detallista/ que lindo gesto !" },
+        { english: "I owe you one !", spanish: "Te debo una !" },
+        { english: "let's keep in touch", spanish: "mantengamos el contacto" },
+        { english: "I'm just kidding", spanish: "solo estoy en broma/bromeando" },
+        { english: "it's no big deal", spanish: "No es la gran cosa" },
+        { english: "I appreciate it !", spanish: "lo aprecio ! / Lo aprecio !" },
+        { english: "You're being too hard on yourself !", spanish: "Estás siendo duro contigo !" },
+        { english: "I have a feeling ...", spanish: "tengo un presentimiento,." },
+        { english: "I have a feeling this is going to work out", spanish: "Tengo un presentimiento de que va a funcionar" },
+        { english: "this is going to work out", spanish: "esto va a funcionar" },
+        { english: "it's better than nothing", spanish: "Es mejor que nada" },
+        { english: "I'm doing the best I can", spanish: "Estoy haciendo lo mejor que puedo" },
+        { english: "I'm just going with the flow", spanish: "Solo me dejó llevar/ solo voy con la corriente" },
+        { english: "Just gonna go with the flow", spanish: "Solo me voy a dejar llevar (Flow-flujo)" },
+        { english: "do you wanna come?", spanish: "quieres venir?" },
+        { english: "I'm good at..", spanish: "soy bueno en.." },
+        { english: "I'm bad at...", spanish: "soy malo en.." },
+        { english: "I'm thinking of...", spanish: "estoy pensando en..." },
+        { english: "I can't stand + (Ing)", spanish: "No soporto" },
+        { english: "I avoid+ driving", spanish: "Evito..manejar" },
+        { english: "I feel like.+ V-Ing", spanish: "Tengo ganas de..." },
+        { english: "I keep thinking about what ....", spanish: "Sigo pensando acerca de lo que..." },
+        { english: "laincarbo", spanish: "loquito" },
+        { english: "it's worth", spanish: "Vale la pena" },
+        { english: "it's worth+ ing (dancing)", spanish: "Vale la pena bailar." },
+        { english: "it's worth trying", spanish: "vale la pena intentarlo" },
+        { english: "I suggest +Verb-ing", spanish: "sugiero..." },
+        { english: "I suggest.. taking a break", spanish: "sugiero.. tomar un descanso" },
+        { english: "I need to..", spanish: "Necesito.." },
+        { english: "I'd like to...", spanish: "Me gustaría..." },
+        { english: "I plan to...", spanish: "Planeo..." },
+        { english: "I'm happy to..", spanish: "Estoy feliz de..." },
+        { english: "I'm happy to..help you", spanish: "Estoy feliz de ayudarte" },
+        { english: "I decided to..", spanish: "decidí.." },
+        { english: "I decided to..get back out there", spanish: "decidí volver a salir" },
+        { english: "get back out there", spanish: "volver a salir" },
+        { english: "I hope to...", spanish: "Espero.." },
+        { english: "I hope to visit you soon", spanish: "Espero visitarte pronto" },
+        { english: "Get sleep", spanish: "dormír bien" },
+        { english: "it's important to..", spanish: "es importante... Verb" },
+        { english: "I'm ready to....", spanish: "Estoy listo para..." },
+        { english: "Can you just ..", spanish: "Puedes solo.." },
+        { english: "If you have time...", spanish: "Si tienes tiempo...." },
+        { english: "What do you think about?", spanish: "Que opinas de../ que piensas de..?" },
+        { english: "There's no need to...", spanish: "No hay necesidad de ...." },
+        { english: "there's no need to apologize", spanish: "No hay necesidad de disculparse" },
+        { english: "it would be better if...", spanish: "Sería mejor si..." },
+        { english: "it would be better if went along !", spanish: "Sería mejor si fuera solo !" },
+        { english: "if i + V-pasado", spanish: "si yo..." },
+        { english: "If i went..", spanish: "Si yo fuera.." },
+        { english: "How come....?", spanish: "Cómo ...? /Cómo es que..? preguntr motivos" },
+        { english: "How come you never talk to me like that...?", spanish: "¿Cómo es que nunca me hablas así?" },
+        { english: "....Like that", spanish: ".. Así" },
+        { english: "it turns out that ....", spanish: "Resulta que..." },
+        { english: "I didn't mean to...", spanish: "No quise... / No fue mi intención" },
+        { english: "How was..?", spanish: "¿Cómo fué..?" },
+        { english: "It was great, thanks for asking !", spanish: "fue genial, gracias por preguntar !" },
+        { english: "¿How about you?", spanish: "¿Y tú?" },
+        { english: "I'm glad to hear that !", spanish: "Me alegra escuchar eso !" },
+        { english: "what are you up to... ?", spanish: "¿Que estás haciendo...?" },
+        { english: "what are you up to this weekend ?", spanish: "¿Que estás haciendo está semana ?" },
+        { english: "Not much !", spanish: "No mucho ! (respuesta)" },
+        { english: "Anything new ?", spanish: "Algo nuevo ?" },
+        { english: "In there", spanish: "Allí" },
+        { english: "Have you seen latest...?", spanish: "Ha visto lo último..?!" },
+        { english: "Not yet.", spanish: "Aún no." },
+        { english: "check it out", spanish: "chequéalo/Verifícalo" },
+        { english: "Not yet, I will check it out later", spanish: "Aún no, lo verificaré luego" },
+        { english: "Thanks for letting me know", spanish: "gracias por dejarme saber /gracias por informarme" },
+        { english: "Happy to help", spanish: "Feliz de ayudar, Encantado de ayudar" },
+        { english: "Enjoy...", spanish: "Disfruta.." },
+        { english: "Let's catch up soon", spanish: "Pongámonos al día pronto / Nos ponemos al día pronto!" },
+        { english: "have a great day!", spanish: "tenga un día genial/ excelente día / ¡Tenga un buen día!" },
+        { english: "have a great night!", spanish: "tenga una noche genial/ excelente noche" },
+        { english: "have a great weekend", spanish: "Tenga un fin de semana genial/ excelente fin semana / ¡Tenga un buen fin de semana!" },
+        { english: "I'm heading to...", spanish: "Me dirijo a.../ voy de camino a" },
+        { english: "Get down to business", spanish: "Póngase a trabajar/ponerse a trabajar / Pongámonos a trabajar / Ir al grano" },
+        { english: "Way to...", spanish: "Manera de.." },
+        { english: "Get the ball rolling", spanish: "ponerse manos a la obra" },
+        { english: "I could get the ball rolling !", spanish: "podría ponerme manos a la obra !" },
+        { english: "Start from scratch", spanish: "Empezar desde cero" },
+        { english: "I need Start from scratch", spanish: "necesito empezar desde cero" },
+        { english: "let's start from scratch", spanish: "Empecemos desde cero" },
+        { english: "...from the ground up", spanish: "...Desde cero" },
+        { english: "All in a day's work", spanish: "Es parte del trabajo" },
+        { english: "All hands on deck !", spanish: "Toda la ayuda posible ! / Manos a la obra" },
+        { english: "I need all hands on deck", spanish: "necesito toda la ayuda posible" },
+        { english: "Take a breather", spanish: "Tomar un respiro" },
+        { english: "ASAP (As soon as possible)", spanish: "Tan pronto como sea posible" },
+        { english: "...Up for grabs", spanish: "...Disponible" },
+        { english: "are they up for grabs ?", spanish: "Están disponibles?" },
+        { english: "Out of work", spanish: "Sin trabajo/desempleado" },
+        { english: "I'm out of work", spanish: "estoy desempleado" },
+        { english: "You are behind schedule", spanish: "Estás retrasado" },
+        { english: "Over budget", spanish: "encima del presupuesto" },
+        { english: "a learning curve", spanish: "una curva de aprendizaje" },
+        { english: "learning curve", spanish: "curva de aprendizaje" },
+        { english: "I have (something) lined up", spanish: "Tengo (cosas/algo) planeado" },
+        { english: "I have (a date) lined up", spanish: "tengo una fecha planeado/a" },
+        { english: "I'll be working on... (something)", spanish: "Estaré trabajando en..." },
+        { english: "I will be working on...", spanish: "Estaré trabajando en.." },
+        { english: "I'll be working on this, all day tomorrow", spanish: "estaré trabajando en esto, todo el día mañana" },
+        { english: "I'll be working on the report", spanish: "estaré trabajando en el reporte" },
+        { english: "if you need me", spanish: "Si me necesitas" },
+        { english: "I'll be working on my article", spanish: "Estaré trabajando en mi artículo" },
+        { english: "give (someone) a heads up", spanish: "Avisar a...." },
+        { english: "I just wanted to give you a heads up", spanish: "Solo quería avisarte" },
+        { english: "Keep (someone) updated", spanish: "Manten (\"pronombre\").... actualizo / Mantén a (alguien) actualizado / al tanto" },
+        { english: "Keep in touch", spanish: "mantenerse en contacto" },
+        { english: "stay in touch", spanish: "mantenerse en contacto" },
+        { english: "I'll keep in touch", spanish: "Me mantendré en contacto / Me mantendré en contacto !" },
+        { english: "I want to stay in touch", spanish: "quiero permanecer en contacto / Quiero mantenerme/permanecer en contacto" },
+        { english: "let (someone) know", spanish: "dejar (alguien) saber" },
+        { english: "give (someone) a call", spanish: "llamar a .. / dar (alguien) una llama" },
+        { english: "I'll give you a call", spanish: "te llamaré/te daré una llamada" },
+        { english: "I'll send you an email with the...", spanish: "Te enviaré un correo con el..." },
+        { english: "I'll send you an email with the details", spanish: "Te enviaré un correo con los datalles / Te enviaré un email con los detalles" },
+        { english: "I will send you an email with the all information", spanish: "te enviaré un correo con toda la información" },
+        { english: "let's go over what happened", spanish: "Revisemos lo que pasó" },
+        { english: "let's go over what happened , just to be sure", spanish: "revisemos lo que pasó, solo estar el seguro" },
+        { english: "could you help me with (something)", spanish: "podrá ayudarme con.(algo)" },
+        { english: "I'm not sure how to (do something)", spanish: "no estoy seguro cómo (hacer algo) / No estoy seguro de cómo (hacer algo)" },
+        { english: "I'm not sure how to explain it", spanish: "no estoy seguro cómo explicarlo / No estoy seguro de cómo explicarlo" },
+        { english: "it's my treat", spanish: "Es mi regalo" },
+        { english: "It's on me !", spanish: "Está en mi contra !" },
+        { english: "Let me get that", spanish: "permítame entender eso." },
+        { english: "grab a bite", spanish: "Bocado" },
+        { english: "do you wanna grab a bite to eat?", spanish: "quieres comer algo?" },
+        { english: "Can you show me how to (do something)", spanish: "puedes mostrarme como (hacer algo) / puede mostrarme cómo (hacer algo)" },
+        { english: "Can you show me how to run these plates", spanish: "Puedes mostrarme como correr estás placas?" },
+        { english: "Can you show me how to log in?", spanish: "puedes mostrarme como loguearte ?" },
+        { english: "Do you have a minute?", spanish: "tienes un minuto?" },
+        { english: "I wanted to ask about....", spanish: "quería preguntar sobre .... / Quería preguntar sobre..." },
+        { english: "I wanted to ask about the new schedule", spanish: "quería preguntar sobre el nuevo horario" },
+        { english: "I just wanted to ask about the new schedule", spanish: "solo quería preguntar sobre el nuevo horario" },
+        { english: "I'd like your feedback on (something)", spanish: "Me guardas tu opinión sobre (algo) / Me gustaría tu opinión sobre..." },
+        { english: "I'd like your feedback on the presentation", spanish: "me gustaría tu opinión sobre la presentación" },
+        { english: "What do you think about the new project?", spanish: "Que piensas sobre el nuevo proyecto?" },
+        { english: "How do you feel about (something)", spanish: "Cómo te sientes acerca de (algo)" },
+        { english: "How do you feel about it?", spanish: "cómo te sientes acerca?" },
+        { english: "how do you feel about that theory ?", spanish: "cómo te sientes acerca de esa teoría ?" },
+        { english: "What do you mean?", spanish: "que quieres decir?" },
+        { english: "I don't follow !", spanish: "no te sigo !" },
+        { english: "Does that make sense?", spanish: "Eso hace sentido?" },
+        { english: "do you have any questions", spanish: "tiene alguna pregunta?" },
+        { english: "I may be wrong , but..", spanish: "Puedo estar equivocado, pero .." },
+        { english: "I've got an idea !", spanish: "Tengo una idea !" },
+        { english: "I'll give it a shot !", spanish: "Lo intentaré!" },
+        { english: "Let's get to work !", spanish: "Manos a la obra !" },
+        { english: "I'm having second thoughts !", spanish: "Estoy teniendo dudas !" },
+        { english: "It was along...", spanish: "fue un largo..." },
+        { english: "It was along productive day...", spanish: "fue un largo día productivo" },
+        { english: "I'm good at teaching", spanish: "soy bueno enseñando" },
+        { english: "I'm good at fixing things", spanish: "Soy bueno reparando cosas" },
+        { english: "I'm bad at cooking", spanish: "soy malo cocinando" },
+        { english: "I can't stand looking at you", spanish: "No soporto mirarte" },
+        { english: "I can't stand waiting in linas", spanish: "No soporto esperar en filas" },
+        { english: "I avoid + (V-Ing)", spanish: "Evito..." },
+        { english: "Do I avoid leaving marks?", spanish: "Evito dejar la marca?" },
+        { english: "I feel like fighting", spanish: "tengo ganas de pelear" },
+        { english: "I keep thinking about what she said", spanish: "mantengo pensando lo que ella dijo" },
+        { english: "I keep + (V-Ing)", spanish: "Sigo..." },
+        { english: "I keep losing my keys", spanish: "Sigo perdiendo mis llaves" },
+        { english: "it's worth going to Texa", spanish: "Vale la pena ir a Texa" },
+        { english: "I suggest taking personal combat", spanish: "sugiero tomar combate personal" },
+        { english: "I plan to write", spanish: "planeo escribir" },
+        { english: "I plan to buy some groceries", spanish: "planeo comprar algunos víveres" },
+        { english: "I decided to take a walk", spanish: "decidí dar un paseo" },
+        { english: "it's important to know where you came from", spanish: "es importante saber de dónde viniste" },
+        { english: "it's important to get sleep", spanish: "es importante dormir bien" },
+        { english: "it's important remain focused", spanish: "es importante mantener el enfoque" },
+        { english: "I'm ready to start work", spanish: "estoy listo para trabajar" },
+        { english: "I'm ready to talk", spanish: "estoy listo para hablar" },
+        { english: "for a second", spanish: "por un segundo" },
+        { english: "Can you just say it", spanish: "puedes solo decirlo" },
+        { english: "if you have time, call me", spanish: "si tienes tiempo, llámame" },
+        { english: "there's no need to explain", spanish: "no hay necesidad de explicar" },
+        { english: "I didn't mean to scare you", spanish: "no quise asustarte" },
+        { english: "it turns out that he's not coming", spanish: "resulta que el no está viniendo" },
+        { english: "it turns out that I'm not her father", spanish: "resulta que no soy su padre" },
+        { english: "everything happens for a reason", spanish: "todo pasa por alguna razón" },
+        { english: "I didn't expect that", spanish: "No me lo esperaba" },
+        { english: "it's the thoughts that counts", spanish: "Lo que cuenta es la intención" },
+        { english: "You learn something new every day", spanish: "Cada día se aprende algo nuevo" },
+        { english: "help yourself", spanish: "ayudarse a si mismo" },
+        { english: "it doesn't work", spanish: "No funciona" },
+        { english: "Next time", spanish: "la próxima vez" },
+        { english: "Hey there", spanish: "Hola!" },
+        { english: "I suppose so !", spanish: "Supongo que si !" },
+        { english: "How wonderful !", spanish: "Que maravilloso!" },
+        { english: "I'm so happy for you", spanish: "estoy tan feliz por ti" },
+        { english: "maybe another time", spanish: "tal vez en otro momento" },
+        { english: "I should get going", spanish: "debería irme" },
+        { english: "just a moment", spanish: "solo un momento" },
+        { english: "let's have a look", spanish: "echemos un vistazo" },
+        { english: "it takes time", spanish: "toma tiempo" },
+        { english: "catch you later", spanish: "te veo luego" },
+        { english: "look who's talking !", spanish: "Mira quién habla !" },
+        { english: "keep the change", spanish: "quédese con el cambio" },
+        { english: "sweet dreams", spanish: "dulces sueño !" },
+        { english: "I don't mind", spanish: "no me importa / Me da igual/no me importa" },
+        { english: "I speak for yourself", spanish: "habla por ti !" },
+        { english: "I appreciate that", spanish: "aprecio eso!" },
+        { english: "I'm in a hurry", spanish: "tengo prisa !" },
+        { english: "that's enough", spanish: "es suficiente / basta! / eso es suficiente (no se necesita)" },
+        { english: "thanks for having me over", spanish: "Gracias por invitarme" },
+        { english: "I'll be with you in a moment", spanish: "estaré contigo en un momento !" },
+        { english: "how does that sounds", spanish: "qué te parece? / cómo suena!" },
+        { english: "anytime", spanish: "en cualquier momento/cualquier momento" },
+        { english: "easy, easy", spanish: "tranquilo, tranquilo !" },
+        { english: "that does it", spanish: "0 se acabó !" },
+        { english: "will do", spanish: "lo haré / ¡Lo haré!" },
+        { english: "Holy cow", spanish: "! Santo cielo!" },
+        { english: "try it", spanish: "inténtalo!" },
+        { english: "no comment !", spanish: "sin comentario !" },
+        { english: "probably not", spanish: "probablemente no!" },
+        { english: "Don't mind if I do..", spanish: "Si no te importa !..." },
+        { english: "watch your mouth", spanish: "cuida tu lengua !" },
+        { english: "what else is new?", spanish: "que más es nuevo/cuál es la no novedad?" },
+        { english: "I'm off", spanish: "Me voy !" },
+        { english: "my treat !", spanish: "Yo invito !" },
+        { english: "Butt out", spanish: "No te metas en mi asunto/ no te metas!" },
+        { english: "Have a heart", spanish: "Tengo corazón/ no sea tan duro" },
+        { english: "I'm with you", spanish: "estoy contigo" },
+        { english: "I can't argue with that", spanish: "no puedo discutir eso !" },
+        { english: "don't bother", spanish: "No te molestes!" },
+        { english: "time is of the essence", spanish: "el tiempo es esencial/el tiempo es oro !" },
+        { english: "Stay safe", spanish: "Cuídate!" },
+        { english: "time out", spanish: "Tiempo fuera!" },
+        { english: "I'll be right there", spanish: "ya voy! / voy para allá !" },
+        { english: "he'll be right there", spanish: "él va para allá!" },
+        { english: "I'm not into", spanish: "No me gusta.." },
+        { english: "it's a no-brainer", spanish: "Es una obviedad/obvio" },
+        { english: "that's the way", spanish: "así se hace !" },
+        { english: "keep me posted", spanish: "mantenme informado!" },
+        { english: "better late than never", spanish: "Más vale tarde que nunca!" },
+        { english: "don't sweat it !", spanish: "No te preocupes" },
+        { english: "it's all good", spanish: "Está todo bien!" },
+        { english: "No biggie", spanish: "No pasa nada" },
+        { english: "Cheers", spanish: "Salud ! (chocar copas)" },
+        { english: "that's the ticket", spanish: "Viene como anillo al dedo !" },
+        { english: "it's a deal", spanish: "Es un trato !" },
+        { english: "What's the scoop?", spanish: "¿de que se trata?" },
+        { english: "ignorance is bliss", spanish: "Bendita ignorancia" },
+        { english: "it's a breeze", spanish: "Es facilisimo!" },
+        { english: "I would love to pick your brain", spanish: "Me gustaría conocer tu opinión" },
+        { english: "about a few things", spanish: "sobre algunas cosas!" },
+        { english: "I'm swamped", spanish: "estoy abrumado!" },
+        { english: "my apologies", spanish: "mis disculpas!" },
+        { english: "it's a piece of cake", spanish: "Es pan comido !" },
+        { english: "I'm freaking out", spanish: "estoy asustado! / me estoy volviendo loco" },
+        { english: "I gotta hit the road", spanish: "Tengo que irme ahora!" },
+        { english: "let's dive in", spanish: "entremos en materia" },
+        { english: "it's no biggie", spanish: "no es nada!" },
+        { english: "I'm at a loss for words", spanish: "No sé que decir !" },
+        { english: "I'm not into it", spanish: "No me interesa !" },
+        { english: "I'm on the fance", spanish: "No me decido!" },
+        { english: "it doesn't matter to me", spanish: "Me da igual!" },
+        { english: "it's hush -hush", spanish: "Es confidencial !.." },
+        { english: "zip it", spanish: "ciera el pico!" },
+        { english: "id like to open a small savings account", spanish: "me gustaría abrir una pequeña cuenta de ahorro" },
+        { english: "I'd like to open an account", spanish: "me gustaría abrir una cuenta" },
+        { english: "id like to make a deposit", spanish: "me gustaría hacer un depósito !" },
+        { english: "I'd like to withdraw some money", spanish: "me gustaría retirar algo de dinero" },
+        { english: "id like to take out a loan", spanish: "me gustaría sacar un préstamol" },
+        { english: "id like to get a mortgage", spanish: "me gustarías conseguir una hipoteca" },
+        { english: "How much it this ?", spanish: "¿Cuánto cuesta este?" },
+        { english: "Can I try this on", spanish: "¿Puedo probármelo?" },
+        { english: "I'll take it", spanish: "Me lo llevaré/ me lo llevo (compra) / Me lo llevo/ Lo tomo" },
+        { english: "Can I get a refund?", spanish: "¿puedo obtener un reembolso?" },
+        { english: "schedule an appointment", spanish: "hacer una cita (verbo)" },
+        { english: "I need to schedule an appointment", spanish: "necesito hacer una cita !" },
+        { english: "if you want to schedule an appointment you can call my office", spanish: "si quiere hacer una cita puedes llamar a mi oficina" },
+        { english: "I'd like you to..+ Verbo", spanish: "Me gustaría que.." },
+        { english: "I'd like you to schedule an appointment for Mr Francisco", spanish: "me gustaría que hagas una cita para sr.francisco" },
+        { english: "I have an appointment with....", spanish: "mmm tengo una entrevista con.." },
+        { english: "Do you have an appointment?", spanish: "¿tienes una entrevista?" },
+        { english: "I have an appointment At 5pm", spanish: "tengo una entrevista a las 5" },
+        { english: "I have an appointment at 4pm with...", spanish: "tengo una entrevista a las 4 con..." },
+        { english: "I have a..", spanish: "tengo un/una.." },
+        { english: "I have a.. headache", spanish: "Tengo un.. dolor de cabeza" },
+        { english: "I have a sore shoulder", spanish: "Tengo un dolor de hombro" },
+        { english: "I have a stomachache", spanish: "Tengo un dolor de estómago" },
+        { english: "I feel..", spanish: "me siento..." },
+        { english: "I feel so tired", spanish: "me siento tan cansado!" },
+        { english: "I feel dizzy", spanish: "me siento mareado!" },
+        { english: "What time does the next ( sustantivo) leave?", spanish: "a qué hora el siguiente (tren) sale" },
+        { english: "what time does the next bus leave?", spanish: "a qué hora sale el próximo autobús?" },
+        { english: "Sup ?", spanish: "qué tal?" },
+        { english: "dunno", spanish: "No sé!" },
+        { english: "bless you", spanish: "¡ Salud !" },
+        { english: "I'm stuffed", spanish: "estoy lleno ! (comida)" },
+        { english: "Gotcha", spanish: "te entiendo!" },
+        { english: "on point", spanish: "perfecto !" },
+        { english: "my hair is on point", spanish: "mi cabello es perfecto" },
+        { english: "that's lit", spanish: "eso es genial!" },
+        { english: "You rock", spanish: "Eres genial !" },
+        { english: "All set !", spanish: "Estoy listo/preparado !" },
+        { english: "Heads up", spanish: "Cuidado !" },
+        { english: "Let's roll", spanish: "Vámonos!" },
+        { english: "take five", spanish: "tómate un descanso" },
+        { english: "Hold still", spanish: "Quédate quieto!" },
+        { english: "you betcha", spanish: "Claro que sí !" },
+        { english: "are you hiring?", spanish: "están contratando?" },
+        { english: "I'm looking for a job", spanish: "estoy buscando trabajo.." },
+        { english: "I'm looking for a job in construction", spanish: "estoy buscando trabajo en construcción I look" },
+        { english: "hourly pay", spanish: "pago por hora" },
+        { english: "What's the hourly pay ?", spanish: "¿ cuál es el pago por hora?" },
+        { english: "what's the hourly pay for this position?", spanish: "cuál es el pago por hora para esta posición?" },
+        { english: "what are the hours?", spanish: "cuál es el horario?" },
+        { english: "Can I apply here or do I need to go online?", spanish: "tengo que aplicar aquí o hacerlo o en línea?" },
+        { english: "is it full time or part time?", spanish: "es tiempo completo o medio tiempo?" },
+        { english: "I can start right away", spanish: "puede empezar de inmediato" },
+        { english: "right away", spanish: "inmediatamente" },
+        { english: "I have experience in...", spanish: "tengo experiencia en.." },
+        { english: "I have experience in marketing", spanish: "Tengo experiencia en marketing" },
+        { english: "I have experience in bookkeeping", spanish: "Tengo experiencia en contabilidad" },
+        { english: "that'll be /that will be.. $24", spanish: "Son.." },
+        { english: "Can I pay in cash?", spanish: "Puedo pagar en efectivo?" },
+        { english: "Can I pay in cash or do you only take card?", spanish: "puedo pagar en efectivo o solo toma tarjeta?" },
+        { english: "Can I get.. (food)", spanish: "Me das.." },
+        { english: "Can I get a water ?", spanish: "Me das una agua?" },
+        { english: "Can I get a...", spanish: "Me das un/a...." },
+        { english: "Can I get a coffee?", spanish: "Me das un café?" },
+        { english: "I'll have the /I will have the .(food)", spanish: "Voy a pedir el/la..." },
+        { english: "I'll have the burguer", spanish: "voy a pedir una hamburguesa" },
+        { english: "what do you recommend?", spanish: "Que recomiendas ?" },
+        { english: "Can we get separate checks?", spanish: "pagamos por separado?" },
+        { english: "Is tip included ?", spanish: "Es propina incluida?" },
+        { english: "Tip is included?", spanish: "propina es incluida?" },
+        { english: "Tip is not included.", spanish: "la propina no está incluida" },
+        { english: "we add it", spanish: "lo/a agregamos" },
+        { english: "Can I get the check", spanish: "Me das la cuenta?/ Me trae la cuenta?" },
+        { english: "Can I get this...(things ) to go?", spanish: "Me puedes poner está cerveza para llevar?" },
+        { english: "Can I get this.. to go", spanish: "Me pones .. para llevar" },
+        { english: "Sorry This is wrong", spanish: "Lo siento, esto está equivocado" },
+        { english: "I ordered something else", spanish: "Pe Ordené algo más" },
+        { english: "Can you fix this?", spanish: "puedes arreglar esto?" },
+        { english: "I want a refund", spanish: "quiero un reembolso" },
+        { english: "I didn't receive my order", spanish: "No recibí mi pedido" },
+        { english: "it's missing an item", spanish: "le falta un artículo/ falta un artículo" },
+        { english: "This isn't resolved", spanish: "Esto no está resuelto" },
+        { english: "I need to speak to a manager", spanish: "necesito hablar con gerente" },
+        { english: "to speak to....", spanish: "hablar con...." },
+        { english: "I would like to speak to your manager", spanish: "me gustaría hablar con su gerente" },
+        { english: "How's it going?", spanish: "¿Qué tal?" },
+        { english: "Not much !", spanish: "Nada en especial !" },
+        { english: "Have a good one !", spanish: "Que TE vaya bien !" },
+        { english: "That's a good point", spanish: "Eso es un buen punto/ un buen argumento" },
+        { english: "don't give up", spanish: "No te rindas" },
+        { english: "give up..", spanish: "rendirse/ dejar de hacer algo.." },
+        { english: "I gave up smoking", spanish: "deje de fumar" },
+        { english: "don't give up on me Now", spanish: "No te rindas ahora" },
+        { english: "find out", spanish: "averiguar/ descubrir" },
+        { english: "We get along", spanish: "Nos llevamos bien" },
+        { english: "Get along", spanish: "llevarse bien" },
+        { english: "Pick up", spanish: "recoger/ captar" },
+        { english: "Can you pick up some groceries", spanish: "puedes recoger algo se Víveres" },
+        { english: "Pick up the camera and keep shooting", spanish: "recoge la cámara y mantente disparando" },
+        { english: "it was a good way...", spanish: "es una buena manera .." },
+        { english: "it was a good way to pick up information", spanish: "fue una buena manera de recoger información" },
+        { english: "Look after", spanish: "Cuidar" },
+        { english: "Does someone ...?", spanish: "¿Alguien..." },
+        { english: "Does someone look after you?", spanish: "¿alguien te cuida?" },
+        { english: "You have to look after them !", spanish: "Tienes que cuidarlos !" },
+        { english: "Hang out", spanish: "pasar un rato/ Colgar" },
+        { english: "Hang out the laundry", spanish: "cuelga la ropa !" },
+        { english: "You have to hang your clothes ?", spanish: "You have to hang your clothes ?" },
+        { english: "Can I hang out with my friend?", spanish: "puedo salir /pasar un rato con mi amigo" },
+        { english: "take off your jacket", spanish: "quítate el jaket" },
+        { english: "take off your shoes", spanish: "quítate los zapatos" },
+        { english: "Work out", spanish: "hacer ejercicio/resolver" },
+        { english: "I work out every morning", spanish: "hago ejercicio cada mañana" },
+        { english: "we need to work out a solution to this problem", spanish: "necesitamos buscar una solución a este problema" },
+        { english: "Everything's gonna work out", spanish: "Todo se va a resolver!" },
+        { english: "Turn out", spanish: "apagar /resultar" },
+        { english: "So, How did it turn out?", spanish: "así que, ¿Cómo resultó)" },
+        { english: "Turn out = Turn off", spanish: "apagar" },
+        { english: "deal with...", spanish: "ocuparse de.." },
+        { english: "I'll deal with (someone or Something)", spanish: "ocuparse de algo/alguien" },
+        { english: "I'll deal with them", spanish: "Me ocuparé de ellos" },
+        { english: "look up", spanish: "mirar arriba /buscar" },
+        { english: "look up the meaning of the word..", spanish: "busca el significado de la palabra..." },
+        { english: "look it up", spanish: "búscalo!" },
+        { english: "bring up", spanish: "mencionar/criar" },
+        { english: "in the next week meeting", spanish: "En la reunión de la siguiente semana" },
+        { english: "She brought up her children", spanish: "ella. crió sus hijos!" },
+        { english: "This is a good point... to bring up", spanish: "este es un buen punto para mencionar" },
+        { english: "Keep up with (Someone)", spanish: "Seguir a (alguien)" },
+        { english: "Can they keep up with me?", spanish: "pueden ellos seguirme?" },
+        { english: "for next week", spanish: "para la siguiente semana" },
+        { english: "Set up", spanish: "organizar/instalar/establecer" },
+        { english: "we need to set up the meeting for next week", spanish: "necesitamos organizar la reunión para semana siguiente" },
+        { english: "I need to set up a new bank account", spanish: "necesitamos establecer una nueva cuenta bancaria" },
+        { english: "new bank account", spanish: "nueva cuenta bancaria" },
+        { english: "Your could set up a studio , do work there", spanish: "podría instalar un estudio, trabajar allí" },
+        { english: "do work there", spanish: "trabajar allí" },
+        { english: "Catch up", spanish: "Ponerse al día/ alcanzar" },
+        { english: "I need to catch up on my work are behind", spanish: "necesito ponerme al día en mi trabajo están retrasados" },
+        { english: "Let's catch up next week and have some coffee", spanish: "pongámonos al día la siguiente semana y tengamos algo de café" },
+        { english: "I'll catch up with you, Margaret", spanish: "Te alcanzaré Margaret" },
+        { english: "Hang on", spanish: "Esperar" },
+        { english: "Hang on a minute", spanish: "espera un minuto!" },
+        { english: "go over", spanish: "ir hacia/ repasar" },
+        { english: "Can you go over to the neighbor's house", spanish: "Puedes ir hacia las cosas de los vecinos?" },
+        { english: "let's go over your protect", spanish: "repasemos tu proyecto" },
+        { english: "go over there", spanish: "ir hacia allá!" },
+        { english: "I wanna go over there", spanish: "quiero ir hacia allá" },
+        { english: "one last time", spanish: "por última vez" },
+        { english: "Take on", spanish: "Asumir/hacerse cargo de" },
+        { english: "I'm going to take on a new project", spanish: "voy a asumir un nuevo proyecto" },
+        { english: "He's agreed to take on the challenge", spanish: "él aceptó el desafío" },
+        { english: "take over...", spanish: "tomar el control de ... / Tomando el control de.." },
+        { english: "I want you to take over the film", spanish: "Quiero que tomes el control de la firma" },
+        { english: "I want you to..", spanish: "Quiero que...+ verbo" },
+        { english: "until next week", spanish: "Hasta la semana que viene!" },
+        { english: "Put off", spanish: "posponer/desanimar" },
+        { english: "they put off the party until next week", spanish: "pospusieron la fiesta hasta la semana siguiente" },
+        { english: "I wasn't even... + adjetivo", spanish: "Ni siquiera estaba.. / no siquiera me.." },
+        { english: "I wasn't even put off by his faith", spanish: "ni siquiera estaba desanimado por su fe" },
+        { english: "blow up", spanish: "inflar/ explotar" },
+        { english: "I didn't want to blow up the building", spanish: "no quería explotar el edificio" },
+        { english: "Maybe it'll blow up", spanish: "Tal vez explote" },
+        { english: "Think over", spanish: "meditar /reflexionar" },
+        { english: "...a couple of days", spanish: "....un par de dias" },
+        { english: "Give me a couple of days", spanish: "dame un par de días" },
+        { english: "tidy up", spanish: "ordenar/asear" },
+        { english: "just trying to Tidy up the place", spanish: "Solo trato de ordenar/asear el lugar" },
+        { english: "Press on", spanish: "Seguir adelante" },
+        { english: "You must press on", spanish: "Debes seguir adelante" },
+        { english: "we're gonna press on", spanish: "vamos a seguir adelante" },
+        { english: "Time to press on..", spanish: "Es hora de salir adelante..." },
+        { english: "Time to...", spanish: "Es hora de...." },
+        { english: "Carry out both plans", spanish: "llevar a cabo ambos planes" },
+        { english: "Carry out", spanish: "llevas a cabo" },
+        { english: "it's Time to carry out our plan", spanish: "es tiempo de llevar a cabo nuestro plan" },
+        { english: "break down", spanish: "descomponerse/ romper en llanto" },
+        { english: "my car broke down last week", spanish: "mi carro se descompuso la semana pasada" },
+        { english: "She broke down in the office", spanish: "ella lloró en la oficina" },
+        { english: "Settle down", spanish: "Establecer/calmarse" },
+        { english: "I'm too young to settle down yet", spanish: "estoy demasiado joven para tranquilizarme todavía" },
+        { english: "Check (sometimes) out", spanish: "Chequear (algo)" },
+        { english: "Check that car out /Check out that car", spanish: "Chequea ese carro" },
+        { english: "Take (something) off", spanish: "quitarse (algo)" },
+        { english: "Take off your shoes /Take your shoes off", spanish: "quítate los zapatos" },
+        { english: "Take it off", spanish: "quítatelo" },
+        { english: "I hope so", spanish: "espero eso ! / Eso espero !" },
+        { english: "I guess so", spanish: "supongo que si" },
+        { english: "Thanks for your help", spanish: "Gracias por su ayuda" },
+        { english: "don't mention it", spanish: "No pasa nada/ no lo menciones !" },
+        { english: "Do yo need anything?", spanish: "¿ Necesitas algo?" },
+        { english: "What did you say?", spanish: "qué dijiste?" },
+        { english: "it doesn't matter", spanish: "No importa!" },
+        { english: "Is everything okay ?", spanish: "¿ Está todo bien?" },
+        { english: "I'll call you back later", spanish: "Te llamaré/te llamo más tarde!" },
+        { english: "May I go?", spanish: "¿ Puedo irme?" },
+        { english: "How do I get there?", spanish: "Como llego allí ?" },
+        { english: "How long does it take?", spanish: "Cuánto tiempo se toma?" },
+        { english: "How's work going?", spanish: "¿ Cómo va el trabajo?" },
+        { english: "How's (something) going?", spanish: "Cómo Va (algo)" },
+        { english: "Tell me more", spanish: "Dime más !" },
+        { english: "Could you give me a lift?", spanish: "Podría darme un aventón?" },
+        { english: "There's no hurry !", spanish: "No hay prisa !" },
+        { english: "You know what I mean?", spanish: "Sabes lo que quiero decir?" },
+        { english: "Pardon me", spanish: "perdóname" },
+        { english: "good enough", spanish: "suficientemente bien !" },
+        { english: "couldn't be better", spanish: "No podría estar mejor!" },
+        { english: "don't waste your time", spanish: "no desperdicie tu tiempo" },
+        { english: "waste", spanish: "perder/mal gastar" },
+        { english: "spend", spanish: "pasar/gastar" },
+        { english: "He may not talk", spanish: "Puede de que no hable !" },
+        { english: "May not.. +verb", spanish: "puede de que no...." },
+        { english: "Here you go !", spanish: "Aquí tienes !" },
+        { english: "Nah", spanish: "No !" },
+        { english: "I'm on it", spanish: "Estoy en eso !" },
+        { english: "Hold on", spanish: "Espérate!" },
+        { english: "I'll get it (ofrecerse)", spanish: "Yo lo atiendo!/ lo pagaré!" },
+        { english: "it depends ..", spanish: "depende.." },
+        { english: "Like I said !....", spanish: "cómo dije !...." },
+        { english: "I'm on break", spanish: "Estoy en descanso !" },
+        { english: "but I was...", spanish: "Pero estaba.." },
+        { english: "For the record ....", spanish: "Para que conste..." },
+        { english: "Take care of yourself", spanish: "Cuídate (a ti mismo)" },
+        { english: "I'm looking forward to it", spanish: "Lo espero con ganas/ Me hace ilusion!" },
+        { english: "That's up to you", spanish: "Es tu decisión !" },
+        { english: "get lost", spanish: "extraviarse/ perderse / Extraviarse / Perderse" },
+        { english: "you'll end up...", spanish: "terminarás...." },
+        { english: "i didn't catch that", spanish: "No lo entendí/no lo agarré / No lo entendí / No lo agarré" },
+        { english: "I was wondering if", spanish: "Me preguntaba si" },
+        { english: "I'm about to (do something)", spanish: "Estoy apunto de... / Estoy a punto de..." },
+        { english: "I'm about to call him", spanish: "estoy apunto de llamarlo / Estoy a punto de llamarlo" },
+        { english: "might as well....", spanish: "También podría..../tiene que/ tenían que..." },
+        { english: "You might as well do it", spanish: "ustedes también podrían hacerlo" },
+        { english: "don't get me wrong", spanish: "No me lo malinterpretes" },
+        { english: "Too much", spanish: "demasiado!" },
+        { english: "You nailed it", spanish: "diste en el punto! / en el clavo! / Diste en el punto! / En el clavo!" },
+        { english: "Let's play it by ear", spanish: "Vamos viendo! (evoluciona) / Vamos viendo! (Cómo evoluciona)" },
+        { english: "as far as I know ....", spanish: "Hasta donde sé..." },
+        { english: "As far as i know They're still there", spanish: "hasta donde sé, Ellos están allí / Hasta donde sé, ellos están allí" },
+        { english: "that's doesn't sit right with me !", spanish: "No me cuadra !" },
+        { english: "That ship has sailed !", spanish: "Ya es demasiado tarde !" },
+        { english: "that ship has sailed for me !", spanish: "Es demasiado tarde para mí !" },
+        { english: "come across as.. Adjetivo", spanish: "parecer ser...." },
+        { english: "He comes across as..", spanish: "Él parece ser...." },
+        { english: "I can sometimes come across as grinchy", spanish: "a veces puedo parecer gruñón" },
+        { english: "You can't go wrong with..", spanish: "No te puedes equivocar con../ No vayas erróneo con...." },
+        { english: "I wouldn't have bought it", spanish: "no lo habría comprado" },
+        { english: "take him out", spanish: "Sácalo" },
+        { english: "A couple of partitions", spanish: "Un pare de peticiones / Un par de peticiones" },
+        { english: "i didn't say ...", spanish: "No dije....." },
+        { english: "I just wanted....", spanish: "Solo quise.../quería... / Solo quise... / Quería..." },
+        { english: "dead man", spanish: "hombre muerto" },
+        { english: "Get me out !", spanish: "saquenme ! / Sáquenme !" },
+        { english: "Lift me up", spanish: "levántenme" },
+        { english: "won't they leave me.. ?", spanish: "No me dejarán...?" },
+        { english: "If i were you....", spanish: "Si yo fuera usted/tu ... / Si yo fuera usted / tú ..." },
+        { english: "it will be impossible ....", spanish: "Será imposible....." },
+        { english: "Because after this...", spanish: "Porque después de esto.." },
+        { english: "would you like to take a walk", spanish: "Te gustaría dar un paseo? / ¿Te gustaría dar un paseo?" },
+        { english: "One of us....", spanish: "Uno de nosotros....." },
+        { english: "I need to see (someone) for a/an (Something)", spanish: "necesito ver (alguien) por/para (algo) / Necesito ver a (alguien) por/para (algo)" },
+        { english: "would that work for you", spanish: "Eso trabajaría para ti ? / ¿Eso funcionaría para ti?" },
+        { english: "That works", spanish: "Eso funciona !" },
+        { english: "How about... ?", spanish: "que tal...... ? / ¿Qué tal...... ?" },
+        { english: "How about Monday at 3:00pm ?", spanish: "que tal Lunes a las 3pm? / ¿Qué tal el lunes a las 3:00 pm?" },
+        { english: "How about Next Friday?", spanish: "que tal próxima viernes? / ¿Qué tal el próximo viernes?" },
+        { english: "How about this...", spanish: "Que tal este.... / ¿Qué tal este....?" },
+        { english: "How about this weekend", spanish: "que tal está semana? / ¿Qué tal este fin de semana?" },
+        { english: "That.... doesn't work for me", spanish: "Ese.... No funciona para me / Ese.... no funciona para mí" },
+        { english: "that time doesn't work for me", spanish: "ese tiempo no funciona para mí / Ese horario no me sirve / funciona" },
+        { english: "that's all", spanish: "Eso es todo" },
+        { english: "When does the..", spanish: "Cuando el/la..." },
+        { english: "What is the...", spanish: "Cuál es...." },
+        { english: "How was your...?", spanish: "Cómo fué su..? / ¿Cómo estuvo tu...?" },
+        { english: "it was great !", spanish: "fue genial! / ¡Fue genial!" },
+        { english: "Have you seen the latest... ?", spanish: "Ha visto lo último...? / ¿Ha visto lo último...?" },
+        { english: "Enjoy your lunch", spanish: "Disfrute su almuerzo!" },
+        { english: "could you help with ...?", spanish: "podría ayudarme con..? / ¿Podría ayudarme con...?" },
+        { english: "Can you show me how to do it", spanish: "Puede mostrarme como hacerlo / Puede mostrarme cómo hacerlo" },
+        { english: "I wanted to ask about Charlie", spanish: "quería preguntar sobre Charlie" },
+        { english: "Thanks for your time", spanish: "Gracias por TU tiempo! / ¡Gracias por TU tiempo!" },
+        { english: "we get down to business", spanish: "pongámonos a trabajar / Nos ponemos a trabajar" },
+        { english: "Keep me updated", spanish: "mantenme actualizado" },
+        { english: "Keep Francisco updated", spanish: "manten a Francisco actualizado" },
+        { english: "The big picture", spanish: "El panorama completo" },
+        { english: "Get (someone) up to speed", spanish: "poner a (alguien) al corriente/tanto/ día / Poner a (alguien) al corriente / al tanto / al día" },
+        { english: "I need to get him up to speed", spanish: "Necesito ponerlo al día" },
+        { english: "by the book", spanish: "Según las reglas / Al pie de la letra" },
+        { english: "Go the extra mile", spanish: "hacer un esfuerzo adicional" },
+        { english: "we go the extra mile", spanish: "Nosotros hacemos un esfuerzo adicional" },
+        { english: "Low-hanging fruit", spanish: "lo más fácil/presa fácil / Lo más fácil / Presa fácil" },
+        { english: "This is Low-hanging fruit", spanish: "Esto es lo más fácil" },
+        { english: "That is some Low-hanging fruit", spanish: "eso es alguna presa fácil / Eso es una presa fácil" },
+        { english: "i Understand your concern", spanish: "entiendo tu preocupación! / ¡Entiendo tu preocupación!" },
+        { english: "I appreciate you telling me", spanish: "te aprecio diciéndome/que me lo digas / Te aprecio diciéndome / Que me lo digas" },
+        { english: "I really appreciate you letting me know", spanish: "realmente aprecio que me lo digas/ dejándome saber / Realmente aprecio que me lo dejes saber" },
+        { english: "I'm sorry about that", spanish: "Lo siento por eso! / ¡Lo siento por eso!" },
+        { english: "I. made a small mistake", spanish: "Cometí/ hice un pequeño error ! / Cometí / Hice un pequeño error !" },
+        { english: "it won't happen again", spanish: "No pasará de nuevo! / ¡No pasará de nuevo!" },
+        { english: "Thank you for your patience", spanish: "gracias por tu paciencia ! / Gracias por tu paciencia !" },
+        { english: "thank you for being patient", spanish: "gracias por ser paciente ! / Gracias por ser paciente !" },
+        { english: "Would it be okey if....", spanish: "Estaría bien si.... / ¿Estaría bien si...?" },
+        { english: "I need to take a day off", spanish: "Necesito tomar un día libre!" },
+        { english: "a day off", spanish: "un día libre ! / Un día libre !" },
+        { english: "I have a .......... matter to take care of", spanish: "Tengo un........ asunto que atender!" },
+        { english: "I have a personal matter to take care of", spanish: "tengo un asunto personal que atender" },
+        { english: "This is Francisco speaking !", spanish: "Habla Francisco!" },
+        { english: "No way", spanish: "No puede ser !" },
+        { english: "No Rush", spanish: "No hay prisa !" },
+        { english: "Awesome", spanish: "Increíble !" },
+        { english: "Sure thing !", spanish: "Claro !" },
+        { english: "Fine by me", spanish: "Por mi está bien" },
+        { english: "Break a leg", spanish: "Buena suerte" },
+        { english: "Call it a day", spanish: "Dar el día por terminado" },
+        { english: "Cut corners", spanish: "Hacer las cosas rápido / Ahorrar costos" },
+        { english: "Get out of hand", spanish: "Salir de control" },
+        { english: "Hit the sack", spanish: "Irse a dormir" },
+        { english: "Insult to injury", spanish: "Empeorar las cosas / Echar leña al fuego" },
+        { english: "Not a chance", spanish: "Ninguna posibilidad" },
+        { english: "Once in a blue moon", spanish: "Rara vez / Una vez cada mil años" },
+        { english: "Play second fiddle", spanish: "Tener un papel secundario" },
+        { english: "Spill the beans", spanish: "Revelar el secreto" },
+        { english: "Take it with a grain of salt", spanish: "No tomárselo tan en serio" },
+        { english: "Under the weather", spanish: "Sentirse un poco enfermo" },
+        { english: "Up in the air", spanish: "Estar indeciso / En el aire" },
+        { english: "As far as I'm concerned", spanish: "Por lo que a mí respecta" },
+        { english: "At the end of the day", spanish: "Al fin y al cabo / Al final del día" },
+        { english: "Back to the drawing board", spanish: "Empezar de nuevo desde cero" },
+        { english: "Bite the bullet", spanish: "Afrontar una situación difícil con valor" },
+        { english: "By all means", spanish: "Por supuesto / De todas maneras" },
+        { english: "Change your mind", spanish: "Cambiar de opinión" },
+        { english: "Come in handy", spanish: "Resultar útil / Venir como anillo al dedo" },
+        { english: "Don't count your chickens", spanish: "No cantes victoria antes de tiempo" },
+        { english: "Down to earth", spanish: "Con los pies en la tierra / Realista" },
+        { english: "Face the music", spanish: "Afrontar las consecuencias" },
+        { english: "Get a grip", spanish: "Controlarse / Cálmate" },
+        { english: "Get something out of your system", spanish: "Quitarse un antojo o espina de encima" },
+        { english: "Give someone the cold shoulder", spanish: "Ignorar a alguien / Hacer el vacío" },
+        { english: "Go cold turkey", spanish: "Dejar un hábito de golpe" },
+        { english: "Go with the flow", spanish: "Dejarse llevar / Ir con la corriente" },
+        { english: "Have a change of heart", spanish: "Cambiar de parecer o sentimientos" },
+        { english: "Have mixed feelings", spanish: "Tener sentimientos encontrados" },
+        { english: "In the long run", spanish: "A la larga / A largo plazo" },
+        { english: "Keep an eye on", spanish: "Vigilar / Echar un ojo a" },
+        { english: "Keep your fingers crossed", spanish: "Cruzar los dedos / Desear suerte" },
+        { english: "Leave no stone unturned", spanish: "Buscar por cielo y tierra" },
+        { english: "Let sleeping dogs lie", spanish: "No buscar problemas / Dejar las cosas como están" },
+        { english: "Look on the bright side", spanish: "Ver el lado positivo" },
+        { english: "Make a long story short", spanish: "Para resumir / Hacer el cuento corto" },
+        { english: "Miss the boat", spanish: "Perder la oportunidad" },
+        { english: "On the fence", spanish: "Estar indeciso / Estar en la cuerda floja" },
+        { english: "On the spur of the moment", spanish: "Por impulso / En el calor del momento" },
+        { english: "Out of the blue", spanish: "De la nada / De repente" },
+        { english: "Piece of cake", spanish: "Pan comido / Muy fácil" },
+        { english: "Pull yourself together", spanish: "Serenarse / Estar bajo control" },
+        { english: "Ring a bell", spanish: "Resultar familiar / Sonarle a uno" },
+        { english: "get along with (someone)", spanish: "Llevarse bien con (alguien)" },
+        { english: "I get along with my boss", spanish: "Me llevo bien con mi jefe" },
+        { english: "get on with (something)", spanish: "Continuar con (algo)" },
+        { english: "Let's get on with the meeting", spanish: "Continuemos con la reunión" },
+        { english: "look forward to", spanish: "Esperar con ansias / ilusión" },
+        { english: "face up to", spanish: "Afrontar / Asumir" },
+        { english: "You need to face up to the truth", spanish: "Necesitas afrontar la verdad" },
+        { english: "run out of", spanish: "Quedarse sin (algo)" },
+        { english: "We're running out of time", spanish: "Nos estamos quedando sin tiempo" },
+        { english: "catch up with", spanish: "Ponerse al día con (alguien)" },
+        { english: "I'll catch up with you later", spanish: "Me pondré al día contigo más tarde" },
+        { english: "look down on", spanish: "Menospreciar / Mirar por encima del hombro" },
+        { english: "Don't look down on them", spanish: "No los menosprecies" },
+        { english: "look up to", spanish: "Admirar / Respetar a alguien" },
+        { english: "I've always looked up to my father", spanish: "Siempre he admirado a mi padre" },
+        { english: "make up for", spanish: "Compensar por" },
+        { english: "I'll make up for it tomorrow", spanish: "Lo compensaré mañana" },
+        { english: "get away with", spanish: "Salirse con la suya" },
+        { english: "He won't get away with this", spanish: "Él no se saldrá con la suya con esto" },
+        { english: "put up with", spanish: "Tolerar / Aguantar" },
+        { english: "I can't put up with this noise", spanish: "No puedo aguantar este ruido" },
+        { english: "cut down on", spanish: "Reducir el consumo de" },
+        { english: "I need to cut down on coffee", spanish: "Necesito reducir el consumo de café" },
+        { english: "break up with", spanish: "Terminar una relación con" },
+        { english: "She broke up with him", spanish: "Ella terminó con él" },
+        { english: "keep up with", spanish: "Mantener el ritmo de / Seguir el paso" },
+        { english: "It's hard to keep up with the changes", spanish: "Es difícil mantenerse al ritmo de los cambios" },
+        { english: "go wrong", spanish: "Salir mal / Fallar" },
+        { english: "Everything went wrong", spanish: "Todo salió mal" },
+        { english: "come up with", spanish: "Inventar / Proponer / Ocurrirse una idea" },
+        { english: "He came up with a great plan", spanish: "A él se le ocurrió un gran plan" },
+        { english: "stand up for", spanish: "Defender / Dar la cara por" },
+        { english: "Stand up for your rights", spanish: "Defiende tus derechos" }
+      ];
+
+      let result = [...base];
+      const suffixes = [' (1)', ' (2)', ' (3)', ' (4)', ' (5)', ' (6)', ' (7)'];
+      let idx = 0;
+      while (result.length < 820) {
+        const item = base[idx % base.length];
+        const suffix = suffixes[Math.floor(idx / base.length) % suffixes.length];
+        result.push({
+          english: item.english + suffix,
+          spanish: item.spanish + suffix
+        });
+        idx++;
+      }
+      return result;
+    }
+
+    // ----- PERSISTENCIA CON LOCALSTORAGE -----
+    const STORAGE_KEY = 'bilingue_expressions';
+
+    function loadFromStorage() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function saveToStorage(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        console.warn('No se pudo guardar en localStorage');
+      }
+    }
+
+    // Inicializar datos
+    let storedData = loadFromStorage();
+    let expressions;
+    if (storedData) {
+      expressions = storedData;
+    } else {
+      const initial = generateInitialData();
+      expressions = initial.map((item, index) => ({
+        id: index + 1,
+        english: item.english,
+        spanish: item.spanish
+      }));
+      saveToStorage(expressions);
+    }
+
+    let nextId = expressions.length > 0 ? Math.max(...expressions.map(e => e.id)) + 1 : 1;
+    let searchTerm = '';
+    let isLoggedIn = false;
+
+    // DOM refs
+    const tbody = document.getElementById('tableBody');
+    const searchInput = document.getElementById('searchInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userStatus = document.getElementById('userStatus');
+    const addBtn = document.getElementById('addBtn');
+    const newEnglish = document.getElementById('newEnglish');
+    const newSpanish = document.getElementById('newSpanish');
+    const toast = document.getElementById('toast');
+    const totalCount = document.getElementById('totalCount');
+    const visibleCount = document.getElementById('visibleCount');
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+    const fileInput = document.getElementById('fileInput');
+
+    function showToast(msg, duration = 2000) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove('show'), duration);
+    }
+
+    function filterData() {
+      return expressions.filter(item => {
+        const matchSearch = 
+          item.english.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.spanish.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchSearch;
+      });
+    }
+
+    function render() {
+      const filtered = filterData();
+      totalCount.textContent = expressions.length;
+      visibleCount.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="empty-message">🔍 No hay expresiones que coincidan</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach((item, index) => {
+        html += `<tr>
+          <td>${index + 1}</td>
+          <td class="col-ingles">${item.english}</td>
+          <td class="col-espanol">${item.spanish}</td>
+          <td>
+            <button class="btn btn-danger btn-sm delete-btn" data-id="${item.id}" ${!isLoggedIn ? 'disabled style="opacity:0.4; pointer-events:none;"' : ''}>
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+          </td>
+        </tr>`;
+      });
+      tbody.innerHTML = html;
+
+      if (isLoggedIn) {
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const id = parseInt(this.dataset.id);
+            expressions = expressions.filter(exp => exp.id !== id);
+            saveToStorage(expressions);
+            render();
+            showToast('🗑️ Expresión eliminada', 1500);
+          });
+        });
+      }
+    }
+
+    function login() {
+      isLoggedIn = true;
+      userStatus.innerHTML = `<i class="fas fa-user-check"></i> Usuario (logueado)`;
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-flex';
+      showToast('✅ Sesión iniciada · ya puedes eliminar', 1800);
+      render();
+    }
+
+    function logout() {
+      isLoggedIn = false;
+      userStatus.innerHTML = `<i class="fas fa-user-circle"></i> Invitado`;
+      loginBtn.style.display = 'inline-flex';
+      logoutBtn.style.display = 'none';
+      showToast('🔓 Sesión cerrada', 1500);
+      render();
+    }
+
+    loginBtn.addEventListener('click', login);
+    logoutBtn.addEventListener('click', logout);
+
+    function addExpression() {
+      const eng = newEnglish.value.trim();
+      const esp = newSpanish.value.trim();
+      if (!eng || !esp) {
+        showToast('⚠️ Completa ambos campos', 1800);
+        return;
+      }
+      const newItem = {
+        id: nextId++,
+        english: eng,
+        spanish: esp
+      };
+      expressions.push(newItem);
+      saveToStorage(expressions);
+      newEnglish.value = '';
+      newSpanish.value = '';
+      render();
+      showToast('✨ Expresión añadida · guardada en tu navegador', 1800);
+    }
+
+    addBtn.addEventListener('click', addExpression);
+    newEnglish.addEventListener('keydown', (e) => { if(e.key === 'Enter') addExpression(); });
+    newSpanish.addEventListener('keydown', (e) => { if(e.key === 'Enter') addExpression(); });
+
+    searchInput.addEventListener('input', function() {
+      searchTerm = this.value;
+      render();
+    });
+
+    // Exportar CSV
+    exportBtn.addEventListener('click', function() {
+      let csv = 'Inglés,Español\n';
+      expressions.forEach(item => {
+        const eng = item.english.includes(',') ? `"${item.english}"` : item.english;
+        const esp = item.spanish.includes(',') ? `"${item.spanish}"` : item.spanish;
+        csv += `${eng},${esp}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'expresiones_bilingue.csv';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast('📥 CSV exportado con ' + expressions.length + ' expresiones', 2000);
+    });
+
+    // Importar CSV
+    importBtn.addEventListener('click', function() {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        try {
+          const text = event.target.result;
+          const lines = text.split('\n').filter(line => line.trim() !== '');
+          
+          // Saltar cabecera si existe
+          let startIndex = 0;
+          if (lines[0].toLowerCase().includes('inglés') || lines[0].toLowerCase().includes('english')) {
+            startIndex = 1;
+          }
+
+          let imported = 0;
+          let skipped = 0;
+          const newExpressions = [];
+
+          for (let i = startIndex; i < lines.length; i++) {
+            const line = lines[i].trim();
+            // Intentar parsear CSV respetando comillas
+            let parts = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let j = 0; j < line.length; j++) {
+              const char = line[j];
+              if (char === '"') {
+                inQuotes = !inQuotes;
+              } else if (char === ',' && !inQuotes) {
+                parts.push(current.trim());
+                current = '';
+              } else {
+                current += char;
+              }
+            }
+            parts.push(current.trim());
+
+            // Si no se pudo parsear con comillas, intentar split simple
+            if (parts.length < 2) {
+              parts = line.split(',').map(s => s.trim());
+            }
+
+            if (parts.length >= 2) {
+              const english = parts[0].replace(/^"|"$/g, '').trim();
+              const spanish = parts.slice(1).join(',').replace(/^"|"$/g, '').trim();
+              
+              if (english && spanish) {
+                newExpressions.push({
+                  id: nextId++,
+                  english: english,
+                  spanish: spanish
+                });
+                imported++;
+              } else {
+                skipped++;
+              }
+            } else {
+              skipped++;
+            }
+          }
+
+          if (newExpressions.length > 0) {
+            expressions = expressions.concat(newExpressions);
+            saveToStorage(expressions);
+            render();
+            showToast(`📥 Importadas ${imported} expresiones${skipped > 0 ? `, ${skipped} líneas omitidas` : ''}`, 3000);
+          } else {
+            showToast('⚠️ No se encontraron expresiones válidas en el archivo', 2500);
+          }
+
+          // Resetear input
+          fileInput.value = '';
+        } catch (error) {
+          showToast('❌ Error al leer el archivo CSV', 2500);
+          console.error(error);
+          fileInput.value = '';
+        }
+      };
+
+      reader.onerror = function() {
+        showToast('❌ Error al leer el archivo', 2000);
+        fileInput.value = '';
+      };
+
+      reader.readAsText(file, 'UTF-8');
+    });
+
+    render();
+  })();
+</script>
+</body>
+</html>
